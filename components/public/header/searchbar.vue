@@ -11,7 +11,7 @@
         class="center">
         <div class="wrapper">
           <el-input placeholder="搜索商家或地点"/>
-          <button class="el-button el-button-primary"><i class="el-icon-search"/></button>
+          <button class="el-button el-button--primary"><i class="el-icon-search"/></button>
           <dl class="hotPlace">
             <dt>热门搜索</dt>
             <dd>火锅</dd>
