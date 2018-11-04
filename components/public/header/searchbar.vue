@@ -10,20 +10,28 @@
         :span="15"
         class="center">
         <div class="wrapper">
-          <el-input placeholder="搜索商家或地点"/>
+          <el-input
+            v-model="searchContent"
+            placeholder="搜索商家或地点"
+            @focus="searchFocus"
+            @blur="searchBlur"/>
           <button class="el-button el-button--primary"><i class="el-icon-search"/></button>
-          <dl class="hotPlace">
+          <dl
+            v-if="isHotPlace"
+            class="hotPlace">
             <dt>热门搜索</dt>
-            <dd>火锅</dd>
-            <dd>麻辣烫</dd>
-            <dd>小龙虾</dd>
+            <dd
+              v-for="(item, idx) in hotPlace"
+              :key="idx"
+              @click="selectHot">{{ item }}</dd>
           </dl>
-          <dl class="searchList">
-            <dd>阿上阿上</dd>
-            <dd>干锅鸭头</dd>
-            <dd>艾品牛排</dd>
-            <dd>羊肉烩面</dd>
-            <dd>牛肉蒸饺</dd>
+          <dl
+            v-if="isSearchList"
+            class="searchList">
+            <dd
+              v-for="(item, idx) in searchList"
+              :key="idx"
+              @click="selectSearch">{{ item }}</dd>
           </dl>
         </div>
         <p class="suggset">
@@ -58,16 +66,54 @@
       </el-col>
       <el-col
         :span="6"
-        class="right">3</el-col>
+        class="right">
+        <ul class="security">
+          <li><i class="refund"/><p class="txt">随时退</p></li>
+          <li><i class="single"/><p class="txt">不满意免单</p></li>
+          <li><i class="overdue"/><p class="txt">过期退</p></li>
+        </ul>
+      </el-col>
     </el-row>
   </div>
 </template>
 
 <script>
   export default {
+    data() {
+      return {
+        searchContent: '',
+        isFocus: false,
+        hotPlace: ['重庆火锅','阿上阿上','关东煮','麻辣小龙虾'],
+        searchList: ['干锅鸭头','艾品牛排','羊肉烩面','牛肉蒸饺']
+      }
+    },
+    computed: {
+      isHotPlace: function () {
+        return this.isFocus && !this.searchContent
+      },
+      isSearchList: function () {
+        return this.isFocus && this.searchContent
+      }
+    },
+    methods: {
+      searchFocus: function() {
+        this.isFocus = true;
+      },
+      searchBlur: function () {
+        setTimeout(() => {
+          this.isFocus = false;
+        }, 150)
+      },
+      selectHot: function () {
+        console.log('click host')
+      },
+      selectSearch: function () {
+        console.log('click search')
+      }
+    }
   }
 </script>
 
-<style>
+<style lang="scss">
 @import "@/assets/css/public/header/search.scss";
 </style>
