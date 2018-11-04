@@ -14,7 +14,8 @@
             v-model="searchContent"
             placeholder="搜索商家或地点"
             @focus="searchFocus"
-            @blur="searchBlur"/>
+            @blur="searchBlur"
+            @input="searchInput"/>
           <button class="el-button el-button--primary"><i class="el-icon-search"/></button>
           <dl
             v-if="isHotPlace"
@@ -22,16 +23,14 @@
             <dt>热门搜索</dt>
             <dd
               v-for="(item, idx) in hotPlace"
-              :key="idx"
-              @click="selectHot">{{ item }}</dd>
+              :key="idx">{{ item }}</dd>
           </dl>
           <dl
             v-if="isSearchList"
             class="searchList">
             <dd
               v-for="(item, idx) in searchList"
-              :key="idx"
-              @click="selectSearch">{{ item }}</dd>
+              :key="idx">{{ item }}</dd>
           </dl>
         </div>
         <p class="suggset">
@@ -104,11 +103,8 @@
           this.isFocus = false;
         }, 150)
       },
-      selectHot: function () {
-        console.log('click host')
-      },
-      selectSearch: function () {
-        console.log('click search')
+      searchInput: function(e) {
+        console.log(e)
       }
     }
   }
