@@ -1,14 +1,21 @@
 <template>
   <div class="m-menu">
-    <dl class="nav">
+    <dl
+      class="nav"
+      @mouseleave="menuLeave">
       <dt>全部分类</dt>
       <dd
         v-for="(item, idx) in menu"
-        :key="idx">
+        :key="idx"
+        @mouseenter="menuEnter(item.type)">
         <i :class="item.type"/>{{ item.name }}<span class="arrow"/>
       </dd>
     </dl>
-    <div class="detail">
+    <div
+      v-if="kind"
+      class="detail"
+      @mouseenter="detailEnter"
+      @mouseleave="detailLeave">
       <template v-for="(item, idx) in curDetail">
         <h4 :key="idx">{{ item.title }}</h4>
         <span
@@ -24,6 +31,7 @@
     data() {
       return {
         kind: '',
+        timeoutKey: null,
         menu: [{
           type: 'food',
           name: '美食',
@@ -55,6 +63,22 @@
       curDetail: function() {
         const detail = this.menu.filter(item => item.type === this.kind)[0];
         return detail ? detail.child : [];
+      }
+    },
+    methods: {
+      menuLeave: function() {
+        this.timeoutKey = setTimeout(() => {
+          this.kind = ''
+        }, 150)
+      },
+      menuEnter: function(type) {
+        this.kind = type
+      },
+      detailEnter: function() {
+        clearTimeout(this.timeoutKey)
+      },
+      detailLeave: function() {
+        this.kind = ''
       }
     }
   }
