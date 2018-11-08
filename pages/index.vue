@@ -1,16 +1,27 @@
 <template>
-  <section class="container">1</section>
+  <div class="page-index">
+    <el-row>
+      <el-col :span="5">
+        <my-menu/>
+      </el-col>
+      <el-col :span="19">2</el-col>
+    </el-row>
+    <el-row>
+      <el-col :span="24">3</el-col>
+    </el-row>
+  </div>
 </template>
 
 <script>
-import Logo from '~/components/Logo.vue'
+  import MyMenu from '@/components/index/menu.vue'
 
-export default {
-  components: {
-    Logo
+  export default {
+    components: {
+      MyMenu
+    }
   }
-}
 </script>
 
 <style lang="scss">
+  @import "@/assets/css/index/index.scss";
 </style>
